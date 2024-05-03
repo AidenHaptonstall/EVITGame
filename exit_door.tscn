@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0pykgv108g82"]
+
+[ext_resource type="Texture2D" uid="uid://bjyqgmhfkch0t" path="res://EvitGame/Textures/lunchbar.png" id="1_gmprw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wvkky"]
+albedo_texture = ExtResource("1_gmprw")
+
+[sub_resource type="BoxMesh" id="BoxMesh_wotis"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_sxkqk"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[node name="ExitDoor" type="Node3D"]
+
+[node name="ExitDoor" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 3, 0, 0, 0, 0.1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_wvkky")
+mesh = SubResource("BoxMesh_wotis")
+
+[node name="ExitDoor" type="StaticBody3D" parent="ExitDoor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExitDoor/ExitDoor"]
+shape = SubResource("ConcavePolygonShape3D_sxkqk")

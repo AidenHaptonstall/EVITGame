@@ -1,0 +1,291 @@
+[gd_scene load_steps=16 format=3 uid="uid://5xkt6icbpor7"]
+
+[ext_resource type="Script" path="res://EvitGame/Player.gd" id="1_3xyon"]
+[ext_resource type="Texture2D" uid="uid://bw8cwxk6682ga" path="res://EvitGame/Textures/ResumeButton.png" id="2_dsiso"]
+[ext_resource type="Texture2D" uid="uid://dokx1os63nbsu" path="res://EvitGame/Textures/QuitButton.png" id="3_e3gh7"]
+[ext_resource type="Texture2D" uid="uid://bwnit8oyt553f" path="res://EvitGame/Textures/under.png" id="3_siprq"]
+[ext_resource type="Texture2D" uid="uid://e032l4a3egn" path="res://EvitGame/Textures/HP.png" id="4_3igby"]
+[ext_resource type="Texture2D" uid="uid://dbqnc0xg62g3c" path="res://EvitGame/Textures/Stamina.png" id="5_spl5k"]
+[ext_resource type="Texture2D" uid="uid://bjyqgmhfkch0t" path="res://EvitGame/Textures/lunchbar.png" id="6_n0vk5"]
+[ext_resource type="Texture2D" uid="uid://dutbikie68ejk" path="res://EvitGame/Textures/cursor.png" id="8_gnrgw"]
+[ext_resource type="Texture2D" uid="uid://b30lhdgccqdvq" path="res://EvitGame/Textures/RetryButton.png" id="9_iyyn0"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_k4rnu"]
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_0tiyc"]
+
+[sub_resource type="Animation" id="Animation_1rplv"]
+resource_name = "Rotation"
+length = 0.25
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0625, 0.125, 0.1875, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.5708, 0), Vector3(0, 3.14159, 0), Vector3(0, 4.71239, 0), Vector3(0, 6.28319, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_gv2dp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ipbt5"]
+_data = {
+"RESET": SubResource("Animation_gv2dp"),
+"Rotation": SubResource("Animation_1rplv")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0bs6x"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_3xyon")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_k4rnu")
+
+[node name="TwistPivot" type="Node3D" parent="Body"]
+
+[node name="PitchPivot" type="Node3D" parent="Body/TwistPivot"]
+
+[node name="Camera_Physics" type="SpringArm3D" parent="Body/TwistPivot/PitchPivot"]
+transform = Transform3D(0.99824, -0.0312518, 0.0504041, 0, 0.849893, 0.526956, -0.0593064, -0.526028, 0.848397, 0, 0, 0)
+shape = SubResource("SeparationRayShape3D_0tiyc")
+spring_length = 3.8
+
+[node name="Camera" type="Camera3D" parent="Body/TwistPivot/PitchPivot/Camera_Physics"]
+transform = Transform3D(0.665493, 0.00686563, -0.0389369, -0.0208346, 0.618883, -0.24697, 0.0336027, 0.247752, 0.618008, 0.00690226, -0.016057, 3.82128)
+
+[node name="GUI_Control" type="Control" parent="Body/TwistPivot/PitchPivot/Camera_Physics/Camera"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="PauseMenu" type="Control" parent="Body/TwistPivot/PitchPivot/Camera_Physics/Camera/GUI_Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Resume" type="Button" parent="Body/TwistPivot/PitchPivot/Camera_Physics/Camera/GUI_Control/PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -135.0
+offset_top = -41.0
+offset_right = 318.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.6, 0.68)
+icon = ExtResource("2_dsiso")
+
+[node name="Quit" type="Button" parent="Body/TwistPivot/PitchPivot/Camera_Physics/Camera/GUI_Control/PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -135.0
+offset_top = 6.0
+offset_right = 318.0
+offset_bottom = 59.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.6, 0.68)
+icon = ExtResource("3_e3gh7")
+
+[node name="GeneralUI" type="Control" parent="Body/TwistPivot/PitchPivot/Camera_Physics/Camera/GUI_Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="HP" type="TextureProgressBar" parent="Body/TwistPivot/PitchPivot/Camera_Physics/Camera/GUI_Control/GeneralUI"]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 30.0
+scale = Vector2(2.12, 1)
+step = 2.0
+value = 100.0
+texture_under = ExtResource("3_siprq")
+texture_progress = ExtResource("4_3igby")
+
+[node name="Stamina" type="TextureProgressBar" parent="Body/TwistPivot/PitchPivot/Camera_Physics/Camera/GUI_Control/GeneralUI"]
+layout_mode = 0
+offset_top = 35.0
+offset_right = 200.0
+offset_bottom = 65.0
+scale = Vector2(1.16, 1)
+value = 100.0
+texture_under = ExtResource("3_siprq")
+texture_progress = ExtResource("5_spl5k")
+
+[node name="Lunch" type="TextureProgressBar" parent="Body/TwistPivot/PitchPivot/Camera_Physics/Camera/GUI_Control/GeneralUI"]
+layout_mode = 0
+offset_top = 220.0
+offset_right = 200.0
+offset_bottom = 250.0
+rotation = -1.5708
+scale = Vector2(0.73913, 1)
+max_value = 15.0
+texture_under = ExtResource("3_siprq")
+texture_progress = ExtResource("6_n0vk5")
+
+[node name="Cursor" type="Sprite2D" parent="Body/TwistPivot/PitchPivot/Camera_Physics/Camera/GUI_Control/GeneralUI"]
+position = Vector2(576, 325)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_gnrgw")
+
+[node name="DeathScreen" type="Control" parent="Body/TwistPivot/PitchPivot/Camera_Physics/Camera/GUI_Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Body/TwistPivot/PitchPivot/Camera_Physics/Camera/GUI_Control/DeathScreen"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 649.0
+color = Color(0.32549, 0, 0, 0.203922)
+
+[node name="Quit" type="Button" parent="Body/TwistPivot/PitchPivot/Camera_Physics/Camera/GUI_Control/DeathScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -135.0
+offset_top = 7.0
+offset_right = 318.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.6, 0.68)
+icon = ExtResource("3_e3gh7")
+
+[node name="Respawn" type="Button" parent="Body/TwistPivot/PitchPivot/Camera_Physics/Camera/GUI_Control/DeathScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -135.0
+offset_top = -41.0
+offset_right = 318.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.6, 0.68)
+icon = ExtResource("9_iyyn0")
+
+[node name="CompleteScreen" type="Control" parent="Body/TwistPivot/PitchPivot/Camera_Physics/Camera/GUI_Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextEdit" type="TextEdit" parent="Body/TwistPivot/PitchPivot/Camera_Physics/Camera/GUI_Control/CompleteScreen"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -136.0
+offset_right = 136.0
+offset_bottom = 70.0
+grow_horizontal = 2
+text = "You Win!
+You Earned 100 dollars per lunch."
+
+[node name="Total" type="TextEdit" parent="Body/TwistPivot/PitchPivot/Camera_Physics/Camera/GUI_Control/CompleteScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.0
+offset_top = -245.0
+offset_right = 137.0
+offset_bottom = -148.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Quit" type="Button" parent="Body/TwistPivot/PitchPivot/Camera_Physics/Camera/GUI_Control/CompleteScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -135.0
+offset_top = 7.0
+offset_right = 318.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.6, 0.68)
+icon = ExtResource("3_e3gh7")
+
+[node name="FocusPoint" type="RayCast3D" parent="Body/TwistPivot/PitchPivot/Camera_Physics/Camera"]
+target_position = Vector3(0, 0, -10)
+
+[node name="EnemyPivot" type="Node3D" parent="Body"]
+
+[node name="EnemyDetection" type="RayCast3D" parent="Body/EnemyPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+target_position = Vector3(0.7, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Body/EnemyPivot/EnemyDetection"]
+libraries = {
+"": SubResource("AnimationLibrary_ipbt5")
+}
+
+[node name="Hitbox" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 3, 0, 0, 0, 1.5, 0, 0, 0)
+shape = SubResource("BoxShape3D_0bs6x")
+
+[connection signal="pressed" from="Body/TwistPivot/PitchPivot/Camera_Physics/Camera/GUI_Control/PauseMenu/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Body/TwistPivot/PitchPivot/Camera_Physics/Camera/GUI_Control/PauseMenu/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Body/TwistPivot/PitchPivot/Camera_Physics/Camera/GUI_Control/DeathScreen/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Body/TwistPivot/PitchPivot/Camera_Physics/Camera/GUI_Control/DeathScreen/Respawn" to="." method="_on_respawn_pressed"]
+[connection signal="pressed" from="Body/TwistPivot/PitchPivot/Camera_Physics/Camera/GUI_Control/CompleteScreen/Quit" to="." method="_on_quit_pressed"]

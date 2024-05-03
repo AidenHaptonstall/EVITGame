@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dslmree2n4ojw"
+path="res://.godot/imported/Campus.obj-bdd5b881e9fea433dff7ca34f18bf259.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Campus.obj-bdd5b881e9fea433dff7ca34f18bf259.mesh"]
+
+source_file="res://EvitGame/3D_Objects/Campus.obj"
+dest_files=["res://.godot/imported/Campus.obj-bdd5b881e9fea433dff7ca34f18bf259.mesh", "res://.godot/imported/Campus.obj-bdd5b881e9fea433dff7ca34f18bf259.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

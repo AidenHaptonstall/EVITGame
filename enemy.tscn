@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://dj15crkia8vsj"]
+
+[ext_resource type="Script" path="res://EvitGame/Enemy.gd" id="1_kl13n"]
+[ext_resource type="Texture2D" uid="uid://e032l4a3egn" path="res://EvitGame/Textures/HP.png" id="2_7fkoi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_st5m1"]
+albedo_texture = ExtResource("2_7fkoi")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_q7fqf"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n1boj"]
+
+[node name="Enemy" type="CharacterBody3D" groups=["Enemies"]]
+script = ExtResource("1_kl13n")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+material_override = SubResource("StandardMaterial3D_st5m1")
+mesh = SubResource("CapsuleMesh_q7fqf")
+
+[node name="Hitbox" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_n1boj")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_height_offset = 0.15
+debug_enabled = true
